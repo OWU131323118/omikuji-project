@@ -87,9 +87,8 @@ async function fetchAIResult() {
     const API_KEY = "AIzaSyDgk6lak3XsiBE1y6zTdy5D5kJSSYNXy9o"; 
     // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
-    // モデル名を 'gemini-1.5-flash' に指定（これが一番確実です）
-    // 予備の手段
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+    // gemini-2.5-flash (リストにある最新のFlashモデル) を使います
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
 
     const prompt = "あなたはエレガントな占い師です。以下の3点を上品な言葉で教えて。①ラッキーカラー、②簡単なラッキーアクション、③ポジティブな言葉。出力は装飾なしのプレーンテキストでお願いします。";
 
