@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystal Omikuji</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="ui-layer">
+        <h1 id="title">Crystal Omikuji</h1>
+        
+        <div id="setup-area">
+            <div id="qrcode-container">
+                <div id="qrcode"></div>
+                <p style="text-align: center; color: #546e7a; font-size: 0.8rem; margin-top: 10px;">
+                    SCAN TO START
+                </p>
+            </div>
+        </div>
+
+        <button id="open-btn" style="display:none;" onclick="fetchAIResult()">おみくじを開く</button>
+
+        <div id="result-area" style="display:none;">
+            <div class="result-card">
+                <h2 style="font-weight: 200;">- 鑑定結果 -</h2>
+                <div id="ai-response">
+                    <p>鑑定中...</p>
+                </div>
+                <button onclick="location.reload()" style="margin-top:20px; border:none; background:none; color:#90a4ae; cursor:pointer;">もう一度</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
