@@ -75,22 +75,22 @@ socket.on('sensor', (data) => {
     }
 });
 
-/* public/script.js の fetchAIResult 関数をこれに入れ替える */
+/* public/script.js の fetchAIResult 関数 */
 
-/* public/script.js の修正版（エラー詳細表示機能付き） */
 async function fetchAIResult() {
     document.getElementById("action-area").style.display = "none";
     document.getElementById("result-area").style.display = "block";
     const responseDiv = document.getElementById("ai-response");
     responseDiv.innerHTML = "星に問い合わせ中...";
 
-    // ▼▼▼ ここにAPIキーを貼り付け（前後のスペースに注意！） ▼▼▼
-    const API_KEY = "AIzaSyDGIYRNCsn66uZHy3bCuc5302ZE5QM7XAU"; 
-    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+    // ▼▼▼ 新しいAPIキーをここに貼る（前後にスペースが入らないように注意！） ▼▼▼
+    const API_KEY = "AIzaSyDgk6lak3XsiBE1y6zTdy5D5kJSSYNXy9o"; 
+    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+    // モデル名を 'gemini-1.5-flash' に指定（これが一番確実です）
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
     const prompt = "あなたはエレガントな占い師です。以下の3点を上品な言葉で教えて。①ラッキーカラー、②簡単なラッキーアクション、③ポジティブな言葉。出力は装飾なしのプレーンテキストでお願いします。";
-    // モデル名を 'gemini-pro' に変更しました
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
 
     try {
         const response = await fetch(url, {
@@ -103,19 +103,18 @@ async function fetchAIResult() {
 
         const data = await response.json();
 
-        // エラーが返ってきている場合
+        // もしエラーが返ってきたら内容を表示
         if (!response.ok) {
-            console.error("API Error Detail:", data);
-            throw new Error(`API Error: ${data.error.message || response.statusText}`);
+            console.error("API Error:", data);
+            throw new Error(data.error?.message || "API Error");
         }
 
-        // 成功した場合
+        // 成功したら表示
         const resultText = data.candidates[0].content.parts[0].text;
         responseDiv.innerHTML = resultText.replace(/\n/g, '<br>');
 
     } catch (error) {
         console.error("Connection Error:", error);
-        // 画面に英語のエラーメッセージをそのまま表示する（原因特定のため）
-        responseDiv.innerHTML = `<span style="color:red; font-size:0.8em;">Error: ${error.message}</span>`;
+        responseDiv.innerHTML = `<span style="color:red; font-size:0.8rem;">エラーが発生しました:<br>${error.message}</span>`;
     }
 }
