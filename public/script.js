@@ -77,47 +77,44 @@ socket.on('sensor', (data) => {
 
 /* public/script.js の fetchAIResult 関数をこれに入れ替える */
 
+/* public/script.js の修正版（エラー詳細表示機能付き） */
 async function fetchAIResult() {
-    // 画面切り替え
     document.getElementById("action-area").style.display = "none";
     document.getElementById("result-area").style.display = "block";
-    document.getElementById("ai-response").innerHTML = "星に問い合わせ中...";
+    const responseDiv = document.getElementById("ai-response");
+    responseDiv.innerHTML = "星に問い合わせ中...";
 
-    // ▼▼▼ ここに取得したAPIキーを貼り付けてください ▼▼▼
+    // ▼▼▼ ここにAPIキーを貼り付け（前後のスペースに注意！） ▼▼▼
     const API_KEY = "AIzaSyDGIYRNCsn66uZHy3bCuc5302ZE5QM7XAU"; 
-    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
-    // Geminiへの命令
     const prompt = "あなたはエレガントな占い師です。以下の3点を上品な言葉で教えて。①ラッキーカラー、②簡単なラッキーアクション、③ポジティブな言葉。出力は装飾なしのプレーンテキストでお願いします。";
-
-    // Gemini APIのURL
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
     try {
         const response = await fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                contents: [{
-                    parts: [{
-                        text: prompt
-                    }]
-                }]
+                contents: [{ parts: [{ text: prompt }] }]
             })
         });
 
         const data = await response.json();
 
-        // Geminiからの回答を取り出す
-        const resultText = data.candidates[0].content.parts[0].text;
+        // エラーが返ってきている場合
+        if (!response.ok) {
+            console.error("API Error Detail:", data);
+            throw new Error(`API Error: ${data.error.message || response.statusText}`);
+        }
 
-        // 改行を <br> に変換して表示
-        document.getElementById("ai-response").innerHTML = resultText.replace(/\n/g, '<br>');
+        // 成功した場合
+        const resultText = data.candidates[0].content.parts[0].text;
+        responseDiv.innerHTML = resultText.replace(/\n/g, '<br>');
 
     } catch (error) {
-        console.error("Error:", error);
-        document.getElementById("ai-response").innerText = "エラー：運勢の星が見つかりませんでした。\n(APIキーを確認してください)";
+        console.error("Connection Error:", error);
+        // 画面に英語のエラーメッセージをそのまま表示する（原因特定のため）
+        responseDiv.innerHTML = `<span style="color:red; font-size:0.8em;">Error: ${error.message}</span>`;
     }
 }
