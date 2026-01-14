@@ -75,25 +75,49 @@ socket.on('sensor', (data) => {
     }
 });
 
+/* public/script.js の fetchAIResult 関数をこれに入れ替える */
+
 async function fetchAIResult() {
+    // 画面切り替え
     document.getElementById("action-area").style.display = "none";
     document.getElementById("result-area").style.display = "block";
-    
-    // AIへのプロンプト設定
-    const prompt = "あなたはエレガントな占い師です。以下の3点を上品な言葉で教えて。①ラッキーカラー、②簡単なラッキーアクション、③ポジティブな言葉。";
-    
+    document.getElementById("ai-response").innerHTML = "星に問い合わせ中...";
+
+    // ▼▼▼ ここに取得したAPIキーを貼り付けてください ▼▼▼
+    const API_KEY = "AIzaSyDGIYRNCsn66uZHy3bCuc5302ZE5QM7XAU"; 
+    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+    // Geminiへの命令
+    const prompt = "あなたはエレガントな占い師です。以下の3点を上品な言葉で教えて。①ラッキーカラー、②簡単なラッキーアクション、③ポジティブな言葉。出力は装飾なしのプレーンテキストでお願いします。";
+
+    // Gemini APIのURL
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
     try {
-        const res = await fetch("https://授業指定のAPIパス", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ query: prompt })
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: prompt
+                    }]
+                }]
+            })
         });
-        const data = await res.json();
-        
-        // 改行などを整えて表示
-        const formattedText = data.response.replace(/\n/g, '<br>');
-        document.getElementById("ai-response").innerHTML = `<p style="text-align:left; display:inline-block;">${formattedText}</p>`;
-    } catch (e) {
-        document.getElementById("ai-response").innerText = "通信エラー：運勢を読み取れませんでした。";
+
+        const data = await response.json();
+
+        // Geminiからの回答を取り出す
+        const resultText = data.candidates[0].content.parts[0].text;
+
+        // 改行を <br> に変換して表示
+        document.getElementById("ai-response").innerHTML = resultText.replace(/\n/g, '<br>');
+
+    } catch (error) {
+        console.error("Error:", error);
+        document.getElementById("ai-response").innerText = "エラー：運勢の星が見つかりませんでした。\n(APIキーを確認してください)";
     }
 }
