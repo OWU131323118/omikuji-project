@@ -2,10 +2,10 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crystal Omikuji</title>
+    <title>Elegant Crystal Omikuji</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,25 +15,24 @@
         <div id="setup-area">
             <div id="qrcode-container">
                 <div id="qrcode"></div>
-                <p style="text-align: center; color: #546e7a; font-size: 0.8rem; margin-top: 10px;">
-                    SCAN TO START
-                </p>
+                <p style="margin-top:15px; color:#546e7a;">スマホを振って運勢を動かそう</p>
             </div>
         </div>
 
-        <button id="open-btn" style="display:none;" onclick="fetchAIResult()">おみくじを開く</button>
+        <div id="action-area" style="display:none;">
+            <p id="shake-message" style="color:#546e7a; font-size:1.5rem;">スマホのパワーを受信中...</p>
+            <button id="open-btn" style="display:none;" onclick="fetchAIResult()">おみくじを開く</button>
+        </div>
 
         <div id="result-area" style="display:none;">
             <div class="result-card">
-                <h2 style="font-weight: 200;">- 鑑定結果 -</h2>
+                <h2 style="font-weight: 200; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px;">鑑定結果</h2>
                 <div id="ai-response">
-                    <p>鑑定中...</p>
-                </div>
-                <button onclick="location.reload()" style="margin-top:20px; border:none; background:none; color:#90a4ae; cursor:pointer;">もう一度</button>
+                    </div>
+                <button onclick="location.reload()" style="margin-top:20px; border:none; background:none; color:#90a4ae; cursor:pointer; text-decoration:underline;">もう一度引く</button>
             </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
