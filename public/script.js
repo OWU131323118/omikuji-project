@@ -89,7 +89,8 @@ async function fetchAIResult() {
     // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
     const prompt = "あなたはエレガントな占い師です。以下の3点を上品な言葉で教えて。①ラッキーカラー、②簡単なラッキーアクション、③ポジティブな言葉。出力は装飾なしのプレーンテキストでお願いします。";
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+    // モデル名を 'gemini-pro' に変更しました
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
 
     try {
         const response = await fetch(url, {
