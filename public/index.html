@@ -1,42 +1,38 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>Elegant Crystal Omikuji</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Elegant Crystal Omikuji</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="ui-layer">
-        <h1 id="title">Crystal Omikuji</h1>
-        
-        <div id="setup-area">
-            <div id="qrcode-container">
-                <div id="qrcode"></div>
-                <p style="margin-top:15px; color:#546e7a;">スマホを振って運勢を動かそう</p>
-            </div>
-        </div>
+    <div id="ui-layer">
+        <h1 id="title">Crystal Omikuji</h1>
+        
+        <div id="setup-area">
+            <div id="qrcode-container">
+                <div id="qrcode"></div>
+                <p style="margin-top:15px; color:#546e7a;">スマホを振って運勢を動かそう</p>
+            </div>
+        </div>
 
-        <div id="action-area" style="display:none;">
-            <p id="shake-message" style="color:#546e7a; font-size:1.5rem; margin-bottom: 20px;">スマホのパワーを受信中...</p>
-            
-            <div style="margin-bottom: 20px;">
-                <input type="text" id="user-input" placeholder="今の気分は？（例：眠い、悩みがある...）" 
-                       style="width: 80%; padding: 12px; border: 1px solid #b0bec5; border-radius: 20px; outline: none; color: #455a64; text-align: center; background: rgba(255,255,255,0.8);">
-            </div>
-            <button id="open-btn" style="display:none;" onclick="fetchAIResult()">おみくじを開く</button>
-        </div>
+        <div id="action-area" style="display:none;">
+            <p id="shake-message" style="color:#546e7a; font-size:1.5rem;">スマホのパワーを受信中...</p>
+            <button id="open-btn" style="display:none;" onclick="fetchAIResult()">おみくじを開く</button>
+        </div>
 
-        <div id="result-area" style="display:none;">
-            <div class="result-card">
-                <h2 style="font-weight: 200; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px;">鑑定結果</h2>
-                <div id="ai-response"></div>
-                <button onclick="location.reload()" style="margin-top:20px; border:none; background:none; color:#90a4ae; cursor:pointer; text-decoration:underline;">もう一度引く</button>
-            </div>
-        </div>
-    </div>
-    <script src="script.js"></script>
+        <div id="result-area" style="display:none;">
+            <div class="result-card">
+                <h2 style="font-weight: 200; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px;">鑑定結果</h2>
+                <div id="ai-response">
+                    </div>
+                <button onclick="location.reload()" style="margin-top:20px; border:none; background:none; color:#90a4ae; cursor:pointer; text-decoration:underline;">もう一度引く</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
-</html>
+</html>　　
