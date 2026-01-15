@@ -84,8 +84,7 @@ async function fetchAIResult() {
     responseDiv.innerHTML = "星に問い合わせ中...";
 
     // ▼▼▼ 新しいAPIキーをここに貼る（前後にスペースが入らないように注意！） ▼▼▼
-    const API_KEY = "AIzaSyDgk6lak3XsiBE1y6zTdy5D5kJSSYNXy9o"; 
-    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+    const API_KEY = "AIzaSyDGIYRNCsn66uZHy3bCuc5302ZE5QM7XAU"
 
     // gemini-2.5-flash (リストにある最新のFlashモデル) を使います
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
