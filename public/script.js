@@ -84,7 +84,7 @@ async function fetchAIResult() {
     responseDiv.innerHTML = "星に問い合わせ中...";
 
     // ▼▼▼ 新しいAPIキーをここに貼る（前後にスペースが入らないように注意！） ▼▼▼
-    const API_KEY = "API"; 
+    const API_KEY = "AIzaSyDgk6lak3XsiBE1y6zTdy5D5kJSSYNXy9o"; 
     // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
     // gemini-2.5-flash (リストにある最新のFlashモデル) を使います
